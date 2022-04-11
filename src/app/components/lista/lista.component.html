@@ -1,0 +1,63 @@
+<div class="p-5">
+  <h1>Lista de usuários</h1>
+  <div class="card">
+    <p-toolbar styleClass="mb-4">
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success botao" (click)="openNew()"></button>
+        <button pButton pRipple label="Remover" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()"
+                [disabled]="!selectedProducts || !selectedProducts.length"></button>
+      </ng-template>
+    </p-toolbar>
+
+    <p-table #lista [value]="usuarios" datakey='cpf' [paginator]="true" [rows]="10" [(selection)]="selectedProducts"
+           [loading]=false responsiveLayout="scroll" [showCurrentPageReport]="true"  [rowHover]="true"
+           [globalFilterFields]="['nome','dataNascimento','cpf','rg','telefone','endereco']"
+           currentPageReportTemplate="{first} até {last} de {totalRecords} resultados" [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains', lista)" placeholder="Procurar palavra" />
+                </span>
+        <button pButton class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(lista)"></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="nome">Code <p-sortIcon field="nome"></p-sortIcon></th>
+        <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
+        <th pSortableColumn="cpf">CPF<p-sortIcon field="cpf"></p-sortIcon></th>
+        <th pSortableColumn="rg">RG<p-sortIcon field="rg"></p-sortIcon></th>
+        <th pSortableColumn="telefone">Telefone<p-sortIcon field="telefone"></p-sortIcon></th>
+        <th pSortableColumn="endereco">Endereco<p-sortIcon field="endereco"></p-sortIcon></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="usuario"></p-tableCheckbox>
+        </td>
+        <td>{{usuario.nome}}</td>
+        <td>{{usuario.dataNascimento}}</td>
+        <td>{{usuario.cpf}}</td>
+        <td>{{usuario.rg}}</td>
+        <td>{{usuario.telefone}}</td>
+        <td>{{usuario.endereco}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded botao" (click)="editarUsuario(usuario)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarUsuario(usuario)"></button>
+          <!--<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-help" (click)="detalharUsuario(usuario)"></button>-->
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  </div>
+  <formulario-usuario
+  [visivel]="modalVisivel"
+  (confirmacaoModal)="confirmacaoModal($event)"
+  ></formulario-usuario>
+</div>

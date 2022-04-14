@@ -1,0 +1,129 @@
+<p-dialog header="Formulário de Cliente" [(visible)]="visivel" [modal]="true" [style]="{width: '80vw'}"
+          [draggable]="false" [resizable]="false" (onHide)="cancelaBotao()">
+
+  <h5>Informações do Cliente</h5>
+  <p-divider></p-divider>
+  <form [formGroup]="Form">
+    <div class="p-fluid grid">
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <input type="text" id="Nome" formControlName="nomeCliente" pInputText>
+            <label for="Nome">Nome</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <input type="text" id="sobrenome" formControlName="sobrenome" pInputText>
+            <label for="sobrenome">Sobrenome</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+          <p-calendar formControlName="dataNascimento" dateFormat="dd/mm/yy" [readonlyInput]="true"></p-calendar>
+            <label>Data de Nascimento</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <p-inputMask inputId="telefone" mask="(99) 99999-9999" formControlName="telefone" [unmask]="true"></p-inputMask>
+            <label>Telefone</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <p-inputMask inputId="cpf" mask="999.999.999-99" formControlName="cpf" [unmask]="true"></p-inputMask>
+            <label>CPF</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+          <p-inputMask inputId="rg" mask="9.999.999" formControlName="rg" [unmask]="true"></p-inputMask>
+            <label>RG</label>
+        </span>
+      </div>
+    </div>
+    <h5>Credencias</h5>
+    <p-divider></p-divider>
+    <div class="p-fluid grid">
+      <div class="field col-12 md:col-4">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-user"></i>
+            </span>
+          <span class="p-float-label">
+                <input type="text" id="usuario" formControlName="usuario" pInputText>
+                <label for="usuario">Usuário</label>
+            </span>
+        </div>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <p-password inputId="senha" formControlName="senha"></p-password>
+            <label>Senha</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <p-password inputId="senha" formControlName="confirmarSenha"></p-password>
+            <label>Confirmar Senha</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <p-dropdown [options]="listaObjetos" formControlName="idPerfil"
+                        optionLabel="nome" optionValue="id" placeholder="Selecione"></p-dropdown>
+            <label>Perfil</label>
+        </span>
+      </div>
+    </div>
+    <h5>Endereço</h5>
+    <button pButton pRipple icon="pi pi-plus" class="p-button-success botao" (click)="adicionarEndereco()"></button>
+    <div *ngIf="enderecoF?.controls">
+    <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="removeEndereco(enderecoF.controls.length - 1)"
+    [hidden]="enderecoF.controls.length<2"></button>
+    </div>
+    <p-divider></p-divider>
+    <div formArrayName="endereco" *ngFor="let e of enderecoF?.controls; let i = index">
+      <div [formGroupName]="i" class="p-fluid grid">
+        <div class="field col-12 md:col-12">
+          <label >Endereço - {{ i + 1 }}</label>
+        </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <p-inputMask inputId="inputmask" mask="99999-999" formControlName="cep" [unmask]="true"></p-inputMask>
+            <label>CEP</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <input type="text" id="inputtext6" formControlName="nomeEndereco" pInputText>
+            <label for="inputtext6">Endereço</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <input type="text" id="inputtext7" formControlName="bairro" pInputText>
+            <label for="inputtext7">Bairro</label>
+        </span>
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <input type="text" id="inputtext8" formControlName="estado" pInputText>
+            <label for="inputtext8">Estado</label>
+        </span>
+      </div>
+      <div class="field-checkbox">
+        <p-checkbox [binary]="true" formControlName="isPrincipal" inputId="binary"></p-checkbox>
+        <label>Endereço Principal</label>
+      </div>
+    </div>
+      <div class="field col-12 md:col-12">
+      </div>
+    </div>
+  </form>
+  <p-messages></p-messages>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="confirmaBotao()" label="Ok" styleClass="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="cancelaBotao()" label="Cancelar" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>

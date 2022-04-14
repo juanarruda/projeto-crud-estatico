@@ -4,24 +4,25 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {Usuario} from "../models/usuario";
 import {environment} from "../../environments/environment";
 
+export const API_URL = 'http://localhost:8080/projeto-crud-api/rest';
+export const chaveCrypto = '123456$#@$^@1ERF';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
-  /*private userSubject: BehaviorSubject<Usuario>;
-  public user: Observable<Usuario>;*/
+  /*private userSubject: BehaviorSubject<Cliente>;
+  public user: Observable<Cliente>;*/
 
   constructor(
     private router: Router,
     private http: HttpClient
   ) {
-    /*this.userSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('user')));
+    /*this.userSubject = new BehaviorSubject<Cliente>(JSON.parse(localStorage.getItem('user')));
     this.user = this.userSubject.asObservable();*/
   }
 
-  /*public get userValue(): Usuario {
+  /*public get userValue(): Cliente {
     return this.userSubject.value;
   }
 
@@ -34,7 +35,7 @@ export class LoginService {
   }*!/
 
   login(username, password) {
-    return this.http.post<Usuario>(`${environment.apiUrl}/users/authenticate`, { username, password })
+    return this.http.post<Cliente>(`${environment.apiUrl}/users/authenticate`, { username, password })
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user));
@@ -57,16 +58,16 @@ export class LoginService {
     this.router.navigate(['/account/login']);
   }
 
-  register(user: Usuario) {
+  register(user: Cliente) {
     return this.http.post(`${environment.apiUrl}/users/register`, user);
   }
 
   getAll() {
-    return this.http.get<Usuario[]>(`${environment.apiUrl}/users`);
+    return this.http.get<Cliente[]>(`${environment.apiUrl}/users`);
   }
 
   getById(id: string) {
-    return this.http.get<Usuario>(`${environment.apiUrl}/users/${id}`);
+    return this.http.get<Cliente>(`${environment.apiUrl}/users/${id}`);
   }
 
   update(id, params) {

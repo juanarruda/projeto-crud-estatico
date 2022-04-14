@@ -9,17 +9,17 @@
       </ng-template>
     </p-toolbar>
 
-    <p-table #lista [value]="usuarios" datakey='cpf' [paginator]="true" [rows]="10" [(selection)]="selectedProducts"
-           [loading]=false responsiveLayout="scroll" [showCurrentPageReport]="true"  [rowHover]="true"
-           [globalFilterFields]="['nome','dataNascimento','cpf','rg','telefone','endereco']"
-           currentPageReportTemplate="{first} até {last} de {totalRecords} resultados" [rowsPerPageOptions]="[10,25,50]">
+    <p-table #lista [value]="tabelaCliente" datakey='cpf' [paginator]="true" [rows]="10" [(selection)]="selectedProducts"
+             [loading]=false responsiveLayout="scroll" [showCurrentPageReport]="true" [rowHover]="true"
+             [globalFilterFields]="['nome','dataNascimento','cpf','rg','telefone','endereco']"
+             currentPageReportTemplate="{first} até {last} de {totalRecords} resultados" [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="caption">
       <div class="flex">
         <span class="p-input-icon-left ml-auto">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains', lista)" placeholder="Procurar palavra" />
                 </span>
-        <button pButton class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(lista)"></button>
+        <button pButton class="p-button-outlined" icon="pi pi-filter-slash" (click)="limparTabela(lista)"></button>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -27,37 +27,39 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="nome">Code <p-sortIcon field="nome"></p-sortIcon></th>
+        <th pSortableColumn="nomeUsuario">Nome <p-sortIcon field="nomeUsuario"></p-sortIcon></th>
         <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
         <th pSortableColumn="cpf">CPF<p-sortIcon field="cpf"></p-sortIcon></th>
         <th pSortableColumn="rg">RG<p-sortIcon field="rg"></p-sortIcon></th>
+        <th pSortableColumn="cep">CEP<p-sortIcon field="cep"></p-sortIcon></th>
         <th pSortableColumn="telefone">Telefone<p-sortIcon field="telefone"></p-sortIcon></th>
-        <th pSortableColumn="endereco">Endereco<p-sortIcon field="endereco"></p-sortIcon></th>
+        <th pSortableColumn="nomeEndereco">Endereco<p-sortIcon field="nomeEndereco"></p-sortIcon></th>
         <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-usuario>
+    <ng-template pTemplate="body" let-cliente>
       <tr>
         <td>
-          <p-tableCheckbox [value]="usuario"></p-tableCheckbox>
+          <p-tableCheckbox [value]="cliente"></p-tableCheckbox>
         </td>
-        <td>{{usuario.nome}}</td>
-        <td>{{usuario.dataNascimento}}</td>
-        <td>{{usuario.cpf}}</td>
-        <td>{{usuario.rg}}</td>
-        <td>{{usuario.telefone}}</td>
-        <td>{{usuario.endereco}}</td>
+        <td>{{cliente.nomeCliente}}</td>
+        <td>{{cliente.dataNascimento | date: 'dd/MM/yyyy'}}</td>
+        <td>{{cliente.cpf}}</td>
+        <td>{{cliente.rg}}</td>
+        <td>{{cliente.cep}}</td>
+        <td>{{cliente.telefone}}</td>
+        <td>{{cliente.nomeEndereco}}</td>
         <td>
-          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded botao" (click)="editarUsuario(usuario)"></button>
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarUsuario(usuario)"></button>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded botao" (click)="editarUsuario(cliente)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarUsuario(cliente)"></button>
           <!--<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-help" (click)="detalharUsuario(usuario)"></button>-->
         </td>
       </tr>
     </ng-template>
   </p-table>
   </div>
-  <formulario-usuario
+  <formulario-cliente
   [visivel]="modalVisivel"
   (confirmacaoModal)="confirmacaoModal($event)"
-  ></formulario-usuario>
+  ></formulario-cliente>
 </div>

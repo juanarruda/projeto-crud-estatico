@@ -25,3 +25,20 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Configuracao de ambiente
+
+O codigo foi projetado no intellij, em conjunto com o `projeto-crud-estatico`. Para rodar o programa, basta utilizar `ng start` que irá inicializar no caminho http://localhost:4200/, feito com Angular CLI: `13.3.2` , Node:`16.14.2`, Package Manager: npm `8.6.0`.
+
+
+## Desafio
+O desafio foi utilizar o angular para construir um frontend capaz de realizar um CRUD de clientes com login
+em uma semana, junto com o java sem utilizar frameworks.
+
+## Resultados
+Não utilizar frameworks pra criar o servidor causou alguns problemas que atrasaram a construção do frontend, além disso,
+a modal de formularios também causaram problemas que atrasaram o desenvolvimento.
+
+##O que foi feito
+Atualmente, o projeto consegue listar o formulário de cliente e fazer a listagem de todos os clientes na tabela,
+as services com o insert e delete foram feitas, mas devido ao backend, não está funcionando. Além disso, não foi possível criar o login de usuario, apenas a tela foi criada, mas não realiza nenhuma função.

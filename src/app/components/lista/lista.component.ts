@@ -1,32 +1,46 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Table} from "primeng/table";
+import {ListaService} from "../../services/lista.service";
+import {EntidadeLista} from "../../models/EntidadeLista";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.component.html',
-  styleUrls: ['./lista.component.scss']
+  styleUrls: ['./lista.component.scss'],
+  providers: [DatePipe]
 })
 export class ListaComponent implements OnInit {
 
-  usuarios = [{nome:'aaaa', dataNascimento:11111999, cpf: 12467823105, rg:1234567, telefone:123131321, endereco:'adadasdada'},
-    {nome:'bbbb', dataNascimento:240508515, cpf: 1246786467 , rg:1234987, telefone:123131321, endereco:'adadasdada'}]
+  tabelaCliente: EntidadeLista[] = [];
 
   selectedProducts: any[] = [];
 
   modalVisivel = false;
 
-  constructor() { }
+  constructor(private listaService: ListaService) { }
 
   ngOnInit(): void {
+    this.listaService.getTabelaCliente().subscribe(resposta=>{
+      this.tabelaCliente = resposta;
+    })
   }
 
-  openNew(){this.modalVisivel = true;}
 
-  deleteSelectedProducts(){}
+  openNew(){
+    this.modalVisivel = true;
+  }
 
-  editarUsuario(usuario:any){this.modalVisivel = true;}
+  deleteSelectedProducts(){
 
-  deletarUsuario(usuario:any){}
+  }
+
+  editarUsuario(usuario:EntidadeLista){
+    
+    this.modalVisivel = true;
+  }
+
+  deletarUsuario(usuario:EntidadeLista){}
 
   applyFilterGlobal($event: any, stringVal: any, lista: Table) {
      lista.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
@@ -37,7 +51,7 @@ export class ListaComponent implements OnInit {
     console.log(evento);
   }
 
-  clear(table: Table) {
+  limparTabela(table: Table) {
     table.clear();
   }
 }
